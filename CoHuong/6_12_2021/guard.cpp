@@ -1,12 +1,17 @@
 #include <bits/stdc++.h>
 #define print(_v) for (auto &_ : _v) {cerr << _ << ' ';} cerr << endl;
 using namespace std;
+void file() {
+  const string FILE_NAME = "guard";
+  freopen((FILE_NAME + ".inp").c_str(), "r", stdin);
+  freopen((FILE_NAME + ".out").c_str(), "w", stdout);
+}
 using ll = long long;
 const int oo = 1e9;
-const int N = 1000;
+const int N = 1e5;
 vector<int> G[N];
 int n;
-int dp[N][2][2]; // mau cua no va mau cua cha no
+int dp[N][2][2]; // mau cua cha no va mau cua no
 void dfs(int u, int e = -1) {
   int flag = 0, min_sub = oo;
   dp[u][0][1] = dp[u][1][1] = 1;
@@ -30,6 +35,7 @@ void dfs(int u, int e = -1) {
 }
 int main() {
   cin.tie(0)->sync_with_stdio(0); cout.tie(0);
+  file();
   cin >> n;
   for (int i = 0, u, v; i < n-1; ++i)
     cin >> u >> v, u--, v--,

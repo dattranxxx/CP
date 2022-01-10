@@ -1,6 +1,11 @@
 #include <bits/stdc++.h>
 #define print(_v) for (auto &_ : _v) {cerr << _ << ' ';} cerr << endl;
 using namespace std;
+void file() {
+  const string FILE_NAME = "city";
+  freopen((FILE_NAME + ".inp").c_str(), "r", stdin);
+  freopen((FILE_NAME + ".out").c_str(), "w", stdout);
+}
 using ll = long long;
 const int oo = 1e9;
 struct fenwick_tree {
@@ -21,8 +26,7 @@ struct fenwick_tree {
 const int N = 1e5;
 int a[N], last[N];
 struct P {
-  int l, r, i;
-  P(int l = 0, int r = 0): l(l), r(r) {}
+  int l = 0, r = 0, i = 0;
   bool operator < (const P& p) const {
     return r < p.r;
   }
@@ -43,14 +47,15 @@ int main() {
     cin >> p[i].l >> p[i].r, p[i].i = i;
   sort(p, p + m);
   vector<int> res(m);
+  fenwick_tree bit(n);
   memset(last, -1, sizeof(last));
-  fenwick_tree bit(c.size());
   for (int r = 1, i = 0; i < m; ++i) {
     while (r <= p[i].r) {
       if (last[a[r]] != -1)
         bit.update(last[a[r]], -1);
       last[a[r]] = r;
       bit.update(last[a[r]], 1);
+      r++;
     }  
     res[p[i].i] = bit.get(p[i].r) - bit.get(p[i].l - 1);
   }
